@@ -1,0 +1,141 @@
+// リ・・6.5: LCDにHello, worldと舗示する回佇
+// a14_LCDcommand.v --- Send ROM data to LCD
+module a14_LCDcommand (CLK, RSTn, E, RS, DB, RW, Display );
+
+    input CLK;
+    input RSTn;
+    input Display;  //SW3-76: start display
+    output        E;    // Enable
+    inout [7:0] DB; // Data Bus
+    wire [7:0]  DB;
+    output        RW; // Read/Wirte - 1:Read, 0:Write
+    output        RS; // Register select - 1: Data, 0:Ctrl1
+    reg           E;
+    reg           RW;
+    reg           RS;
+
+    reg [7:0]    prescaler;  // downclock 30MHz clock by 256
+    wire        carryout;
+    reg[3:0]    status, status_next;  // Current - Next Status
+    parameter INIT    = 4'b0000;
+    parameter DWR0    = 4'b0001;
+    parameter DWR1    = 4'b0011;
+    parameter DWR2    = 4'b0010;
+    parameter DVR0    = 4'b0110;
+    parameter DVR1    = 4'b0111;
+    parameter DVR2    = 4'b0101;
+    parameter DVR_INC = 4'b0100;
+    parameter IDLE    = 4'b1100;
+    
+    reg[4:0]  romaddr;  // ROM address
+    wire[8:0] romq;     // ROM data
+    reg       outrom;   // ROM enable - 1: output ROM data, 0: High Z 
+    
+    assign DB[7:0] = (outrom == 1'b1) ? romq[7:0] : 7'bzzzzzzz;
+    
+    lpm_rom0 LCDROM (romaddr, CLK, romq);  // 9bit 32word ROM
+    
+  //countup prescaler
+    always @(posedge CLK or negedge RSTn) begin
+        if (RSTn == 0) begin
+        prescaler <= 8'b0;
+        end
+        else if (prescaler == 8'b1111_1111)begin
+        prescaler <= 8'b0;
+        end
+        else begin
+        prescaler <= prescaler + 8'b1;
+        end
+    end
+    assign carryout = (prescaler == 8'b1111_1111) ? 1'b1 : 1'b0;
+    
+  // state machine part 1: Set Next State
+    always @ (posedge CLK or negedge RSTn) begin
+        if(RSTn == 1'b0) begin
+            status <= IDLE;
+            end
+        else
+        status <= status_next;
+    end
+ 
+  // state machine part 2: Define Next State
+    always @ (status or carryout or DB[7] or romq[7:0] or Display)
+    case(status)
+        INIT: begin
+            if((carryout == 1'b1)&& (Display == 1'b1)) status_next <= DWR0;
+            else                 status_next <= INIT;
+        end
+        DWR0: begin
+            if(romq[7:0] == 8'hFF) status_next <= IDLE;
+            else                  status_next <= DWR1;
+        end
+        DWR1: begin
+            if(carryout == 1'b1) status_next <= DWR2;
+            else                 status_next <= DWR1;
+        end
+        DWR2: begin
+            if(carryout == 1'b1) status_next <= DVR0;
+            else                 status_next <= DWR2;
+        end
+        DVR0: begin
+            if(carryout == 1'b1) status_next <= DVR1;
+            else                 status_next <= DVR0;
+        end
+        DVR1: begin
+            if(carryout == 1'b1) status_next <= DVR2;
+            else                 status_next <= DVR1;
+        end
+        DVR2: begin
+            if(carryout == 1'b1) begin
+                if (DB[7] == 1'b1) status_next <= DVR0;
+                else               status_next <= DVR_INC;
+            end
+            else                   status_next <= DVR2;
+        end
+        DVR_INC: 
+                                    status_next <= DWR0;
+
+        IDLE: 
+            if (Display == 1'b1) status_next = INIT;
+            else                 status_next <= IDLE;
+        default:
+            status_next <= IDLE;
+    endcase
+
+ // state machine part 3: Output according to the state
+     always @ (posedge CLK) begin
+        if ((status == INIT)||(status == IDLE)) begin
+            outrom <= 1'b0;
+            RW     <= 1'b1;
+            E      <= 1'b0;
+            romaddr <= 5'b0;
+            RS     <= 1'b0;
+        end
+        else if (status == DWR0) begin
+            outrom <= 1'b1;
+            RW     <= 1'b0;
+            RS     <= romq [8];
+        end
+	else if(status == DWR1) begin
+            RS     <= romq [8];
+	end
+        else if (status == DWR2) begin
+            E      <= 1'b1;
+            RS     <= romq [8];
+	end
+        else if (status == DVR0) begin
+                outrom <= 1'b0;
+            RW     <= 1'b1;
+            E      <= 1'b0;
+            RS     <= 1'b0;
+        end
+        else if (status == DVR1) begin
+            E      <= 1'b1;
+        end
+        else if (status == DVR_INC) begin
+            E      <= 1'b0;
+            romaddr <= romaddr + 5'b1;
+        end
+
+    end
+endmodule

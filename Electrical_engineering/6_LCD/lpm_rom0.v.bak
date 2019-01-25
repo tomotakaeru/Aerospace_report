@@ -1,0 +1,45 @@
+// lpm_rom0: LCD module data
+module     lpm_rom0 (romaddr, CLK, romq);  // 9bit 32word ROM
+	input CLK;
+	input [4:0] romaddr;
+	output [8:0] romq;
+
+    wire [4:0]  romaddr;  // ROM address
+    reg [8:0] romq;     // ROM data
+
+	 always @ (romaddr)
+		case (romaddr)
+		5'b00000: romq <= 'h038  ;
+		5'b00001: romq <= 'h00F  ;
+		5'b00010: romq <= 'h001  ;
+		5'b00011: romq <= 'h148  ;
+		5'b00100: romq <= 'h165  ;
+		5'b00101: romq <= 'h16C  ;
+		5'b00110: romq <= 'h16C  ;
+		5'b00111: romq <= 'h16F  ;
+		5'b01000: romq <= 'h12C  ;
+		5'b01001: romq <= 'h120  ;
+		5'b01010: romq <= 'h177  ;
+		5'b01011: romq <= 'h16F  ;
+		5'b01100: romq <= 'h172  ;
+		5'b01101: romq <= 'h16C  ;
+		5'b01110: romq <= 'h164  ;
+		5'b01111: romq <= 'h12E  ;
+		5'b10000: romq <= 'h0FF  ;
+		5'b10001: romq <= 'h0  ;
+		5'b10010: romq <= 'h0  ;
+		5'b10011: romq <= 'h0  ;
+		5'b10100: romq <= 'h0  ;
+		5'b10101: romq <= 'h0  ;
+		5'b10110: romq <= 'h0  ;
+		5'b10111: romq <= 'h0  ;
+		5'b11000: romq <= 'h0  ;
+		5'b11001: romq <= 'h0  ;
+		5'b11010: romq <= 'h0  ;
+		5'b11011: romq <= 'h0  ;
+		5'b11100: romq <= 'h0  ;
+		5'b11101: romq <= 'h0  ;
+		5'b11110: romq <= 'h0  ;
+		5'b11111: romq <= 'h0  ;
+		endcase
+endmodule
