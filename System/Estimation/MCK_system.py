@@ -1,4 +1,3 @@
-#%%
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -52,6 +51,4 @@ ax2.set_xlabel("$t$ [s]")
 ax1.set_ylabel("$x$ [m]")
 ax2.set_ylabel("$x$ [m]")
 plt.show()
-# plt.savefig("1-2.png", transparent=True)
-
-#%%
+# plt.savefig("MCK_system.png", transparent=True)
