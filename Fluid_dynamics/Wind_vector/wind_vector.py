@@ -2,17 +2,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+
 #パラメータ
 Vw=20
 Va=10
 alpha=math.pi/3
 gamma=40
 
-
 #格子点を用意
 x = np.linspace(-1,1,21)
 y = np.linspace(-1,1,21)
-
 X=[]
 Y=[]
 
@@ -20,7 +19,6 @@ for i in x:
     for j in y:
         X.append(i)
         Y.append(j)
-
 
 #速度ベクトルを求める
 U=[]
@@ -34,7 +32,7 @@ for (i,j) in zip(X,Y):
         U.append(Vw-Va*math.cos(alpha)-gamma*j/(2*math.pi*(i*i+j*j)))
         V.append(-Va*math.sin(alpha)+gamma*i/(2*math.pi*(i*i+j*j)))
 
-#print(gamma*0.25/(2*math.pi*(0.25*0.25)))
+print(gamma*0.25/(2*math.pi*(0.25*0.25)))
 
 
 #プロット
@@ -46,6 +44,5 @@ plt.plot(0,0,"rx")
 plt.axes().set_aspect('equal', 'datalim')
 plt.xlim([-1.2,1.2])
 plt.ylim([-1.2,1.2])
-#plt.grid()
 plt.draw()
 plt.show()
