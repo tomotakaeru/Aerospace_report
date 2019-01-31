@@ -7,9 +7,11 @@
   * Orbital
   * Spacecraft
 - Fluid Dynamics
+  * Airfoil
   * Boundary Layer
   * Compressibility
 - Solid Dynamics
   * Structual Mechanics
   * Elastodynamics
 - Propulsion
+- Electrical Engineering
