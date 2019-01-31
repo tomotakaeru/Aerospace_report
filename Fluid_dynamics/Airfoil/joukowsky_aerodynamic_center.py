@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -25,7 +24,7 @@ Yze=np.zeros((n,n))
 stream=np.zeros((n,n))
 poten=np.zeros((n,n))
 
-gamma=4.0*np.pi*v0*a*np.sin(alpha+beta) #クッタ条件
+gamma=4.0*np.pi*v0*a*np.sin(alpha+beta) #Kutta条件
 Zc=a*np.exp(1j*(np.pi-beta))+c
 cgamma=1j*gamma/(2.0*np.pi)
 
@@ -69,9 +68,7 @@ for i in range(n):
         Xze[i,k]=np.real(Z+c**2.0/Z)
         Yze[i,k]=np.imag(Z+c**2.0/Z)
 
-
 Cp=pres(x,y)
-
 
 Cmc5=np.zeros(n)
 x0=np.linspace(-1.00,0,181)
@@ -86,8 +83,6 @@ for l in range(n-1):
     fy=-cpm*dny
     for h in range(n):
         Cmc5[h]=Cmc5[h]+((x0[h]-Xze[0,l])*fy+Yze[0,h]*fx)/(0.5*1*1.0**2*16*c**2)
-
-
 
 
 
@@ -108,9 +103,7 @@ for i in range(n):
         Xze[i,k]=np.real(Z+c**2.0/Z)
         Yze[i,k]=np.imag(Z+c**2.0/Z)
 
-
 Cp=pres(x,y)
-
 
 Cmc0=np.zeros(n)
 x0=np.linspace(-1.00,0,181)
@@ -145,9 +138,7 @@ for i in range(n):
         Xze[i,k]=np.real(Z+c**2.0/Z)
         Yze[i,k]=np.imag(Z+c**2.0/Z)
 
-
 Cp=pres(x,y)
-
 
 Cmc3=np.zeros(n)
 x0=np.linspace(-1.00,0,181)
@@ -182,9 +173,7 @@ for i in range(n):
         Xze[i,k]=np.real(Z+c**2.0/Z)
         Yze[i,k]=np.imag(Z+c**2.0/Z)
 
-
 Cp=pres(x,y)
-
 
 Cmc_3=np.zeros(n)
 x0=np.linspace(-1.00,0,181)
@@ -219,9 +208,7 @@ for i in range(n):
         Xze[i,k]=np.real(Z+c**2.0/Z)
         Yze[i,k]=np.imag(Z+c**2.0/Z)
 
-
 Cp=pres(x,y)
-
 
 Cmc_5=np.zeros(n)
 x0=np.linspace(-1.00,0,181)
@@ -236,7 +223,6 @@ for l in range(n-1):
     fy=-cpm*dny
     for h in range(n):
         Cmc_5[h]=Cmc_5[h]+((x0[h]-Xze[0,l])*fy+Yze[0,h]*fx)/(0.5*1*1.0**2*16*c**2)
-
 
 
     
