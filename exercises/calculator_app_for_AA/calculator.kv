@@ -1,0 +1,935 @@
+#: import get_color_from_hex kivy.utils.get_color_from_hex
+
+
+# Wake Up Widget
+CalculatorRoot
+
+<CalculatorRoot>
+    carousel: carousel
+    calculator1: calculator1
+    calculator2: calculator2
+    calculator3: calculator3
+    calculator4: calculator4
+
+    BoxLayout:
+        orientation: "vertical"
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: "Mode"
+                    with_previous: False
+                    app_icon: "./koukuuutyuu_logo.png"
+                ActionButton:
+                    text: "Normal"
+                    color: root.color1
+                    on_press: app.root.change_calc1()
+                ActionButton:
+                    text: "Function"
+                    color: root.color2
+                    on_press: app.root.change_calc2()
+                ActionButton:
+                    text: "Aero"
+                    color: root.color3
+                    on_press: app.root.change_calc3()
+                ActionButton:
+                    text: "Unit"
+                    color: root.color4
+                    on_press: app.root.change_calc4()
+
+
+        Carousel:
+            on_index: app.root.on_index(*args)
+            id: carousel
+            Calculator1:
+                id: calculator1
+            Calculator2:
+                id: calculator2
+            Calculator3:
+                id: calculator3
+            Calculator4:
+                id: calculator4
+
+
+
+
+<Calculator1>
+    display1: display_input1
+    BoxLayout:
+        orientation: "vertical"
+        TextInput:
+            id: display_input1
+            size_hint_y: 1
+            font_size: 50
+            hint_text: '0'
+        Keyboard1:
+            size_hint_y: 3.5
+
+
+<Keyboard1@GridLayout>:  # class Keyboard1(GridLayout):Ç∆ìØã`
+
+    cols: 5
+    rows: 4
+
+    spacing: 2
+    padding: 4
+
+    # 1?øΩ?øΩ
+    NumberButton1:
+        text: "7"
+    NumberButton1:
+        text: "8"
+    NumberButton1:
+        text: "9"
+    DelButton1:
+        text: "DEL"
+    ClearButton1:
+        text: "C"
+
+    # 2?øΩ?øΩ
+    NumberButton1:
+        text: "4"
+    NumberButton1:
+        text: "5"
+    NumberButton1:
+        text: "6"
+    OperatorButton1:
+        text: "*"
+    OperatorButton1:
+        text: "/"
+
+    # 3?øΩ?øΩ
+    NumberButton1:
+        text: "1"
+    NumberButton1:
+        text: "2"
+    NumberButton1:
+        text: "3"
+    OperatorButton1:
+        text: "+"
+    OperatorButton1:
+        text: "-"
+
+    # 4?øΩ?øΩ
+    EncodeButton1:
+        text: "+/-"
+    NumberButton1:
+        text: "0"
+    NumberButton1:
+        text: "."
+    EqualButton1:
+        text: "="
+    CopyButton1:
+        text: "C/P"
+
+<ButtonFormat1@Button>:
+    font_size: '30dp'
+    background_normal: ''
+    background_down: ''
+    background_color: get_color_from_hex("#83481F")
+    on_press: self.background_color = get_color_from_hex("#823600")
+    on_release: self.background_color = get_color_from_hex("#83481F")
+
+<NumberButton1@ButtonFormat1>:
+    bold: True
+    on_press:  app.root.ids['calculator1'].print_number(self.text)
+
+<OperatorButton1@ButtonFormat1>:
+    on_press:  app.root.ids['calculator1'].print_operator(self.text)
+
+<ClearButton1@ButtonFormat1>:
+    on_press:  app.root.ids['calculator1'].clear()
+
+<DelButton1@ButtonFormat1>:
+    on_press:  app.root.ids['calculator1'].delete()
+
+<EqualButton1@ButtonFormat1>:
+    on_press:  app.root.ids['calculator1'].calculate()
+
+<EncodeButton1@ButtonFormat1>:
+    on_press:  app.root.ids['calculator1'].change_encode(self.text)
+
+<CopyButton1@ButtonFormat1>:
+    on_press:  app.root.ids['calculator1'].copy_paste()
+
+
+
+
+<Calculator2>
+    display2: display_input2
+    BoxLayout:
+        orientation: "vertical"
+        TextInput:
+            id: display_input2
+            size_hint_y: 1
+            font_size: 50
+            hint_text: '0'
+        Keyboard2:
+            size_hint_y: 3.5
+
+
+<Keyboard2@GridLayout>:
+
+    cols: 6
+    rows: 6
+
+    spacing: 2
+    padding: 4
+
+    # 1?øΩ?øΩ
+    OperatorButton_factorial2:
+        text: "x!"
+    NumberButton2:
+        text: "("
+    NumberButton2:
+        text: ")"
+    OperatorButton_pow2:
+        text: "^y"
+    OperatorButton_ten_exp2:
+        text: "10^"
+    OperatorButton_log_ten2:
+        text: "log10"
+
+    # 2?øΩ?øΩ
+    NumberButton_pi2:
+        text: "pi"
+    ReverseButton2:
+        text: "1/x"
+    OperatorButton_root2:
+        text: "Å„"
+    OperatorButton_sq2:
+        text: "^2"
+    OperatorButton_exp2:
+        text: "e^"
+    OperatorButton_ln2:
+        text: "ln"
+
+    # 3?øΩ?øΩ
+    OperatorButton_sin2:
+        text: "sin"
+    NumberButton2:
+        text: "7"
+    NumberButton2:
+        text: "8"
+    NumberButton2:
+        text: "9"
+    DelButton2:
+        text: "DEL"
+    ClearButton2:
+        text: "C"
+
+    # 4?øΩ?øΩ
+    OperatorButton_cos2:
+        text: "cos"
+    NumberButton2:
+        text: "4"
+    NumberButton2:
+        text: "5"
+    NumberButton2:
+        text: "6"
+    OperatorButton2:
+        text: "*"
+    OperatorButton2:
+        text: "/"
+
+    # 5?øΩ?øΩ
+    OperatorButton_tan2:
+        text: "tan"    
+    NumberButton2:
+        text: "1"
+    NumberButton2:
+        text: "2"
+    NumberButton2:
+        text: "3"
+    OperatorButton2:
+        text: "+"
+    OperatorButton2:
+        text: "-"
+
+    # 6?øΩ?øΩ
+    ChangeDegButton2:
+        text: "deg/rad"
+    EncodeButton2:
+        text: "+/-"
+    NumberButton2:
+        text: "0"
+    NumberButton2:
+        text: "."
+    EqualButton2:
+        text: "="
+    CopyButton2:
+        text: "C/P"
+
+
+<ButtonFormat2@Button>:
+    font_size: '30dp'
+    background_normal: ''
+    background_down: ''
+    background_color: get_color_from_hex("#83481F")
+    on_press: self.background_color = get_color_from_hex("#823600")
+    on_release: self.background_color = get_color_from_hex("#83481F")
+
+<NumberButton2@ButtonFormat2>:
+    bold: True
+    on_press:  app.root.ids['calculator2'].print_number(self.text)
+
+<NumberButton_pi2@ButtonFormat2>:
+    bold: True
+    on_press:  app.root.ids['calculator2'].print_number_pi(self.text)
+
+<NumberButton_exp2@ButtonFormat2>:
+    bold: True
+    on_press:  app.root.ids['calculator2'].print_number_exp(self.text)
+
+<OperatorButton2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator(self.text)
+
+<OperatorButton_factorial2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_factorial(self.text)
+
+<OperatorButton_root2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_root(self.text)
+
+<OperatorButton_pow2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_pow(self.text)
+
+<OperatorButton_sq2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_sq(self.text)
+
+<OperatorButton_exp2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_exp(self.text)
+
+<OperatorButton_ten_exp2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_ten_exp(self.text)
+
+<OperatorButton_log_ten2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_log_ten(self.text)
+
+<OperatorButton_ln2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_ln(self.text)
+
+<OperatorButton_sin2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_sin(self.text)
+
+<OperatorButton_cos2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_cos(self.text)
+
+<OperatorButton_tan2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].print_operator_tan(self.text)
+
+<ReverseButton2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].reverse()
+
+<ClearButton2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].clear()
+
+<DelButton2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].delete()
+
+<EqualButton2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].calculate()
+
+<EncodeButton2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].change_encode(self.text)
+
+<ChangeDegButton2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].change_deg(self.text)
+
+<CopyButton2@ButtonFormat2>:
+    on_press:  app.root.ids['calculator2'].copy_paste()
+
+
+
+
+<Calculator3>
+    display3: display_input30
+
+    orientation: "vertical"
+    BoxLayout:
+        size_hint_x: 1
+        size_hint_y: 0.2
+        TextInput:
+            id: display_input30
+            font_size: 50
+            hint_text: '0'
+            background_color: root.color30
+            on_focus: app.root.ids['calculator3'].display30()
+
+    BoxLayout:
+        orientation: "horizontal"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.3
+
+            Label:
+                text: "Rocket Engine (LH2/LOX)"    
+                size_hint_y: 0.05
+            BoxLayout:
+                size_hint_y: 0.15
+                orientation: "horizontal"
+                Button:
+                    text: "Vj [m/s]"
+                    background_color: root.color_Vj
+                    on_press:  app.root.ids['calculator3'].calc_Vj()
+                Button:
+                    text: "Isp [s]"
+                    background_color: root.color_Isp
+                    on_press:  app.root.ids['calculator3'].calc_Isp()
+                Button:
+                    text: "É©"
+                    background_color: root.color_payload_ratio
+                    on_press:  app.root.ids['calculator3'].calc_payload_ratio()
+            BoxLayout:
+                size_hint_y: 0.2
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "MR"
+                    TextInput:
+                        id: display_input310
+                        background_color: root.color310
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display310()
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "Pc [MPa]"
+                    TextInput:
+                        id: display_input320
+                        background_color: root.color320
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display320()
+
+            BoxLayout:
+                size_hint_y: 0.2
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "Tf [K]"
+                    TextInput:
+                        id: display_input330
+                        background_color: root.color330
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display330()
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "P0 [MPa]"
+                    TextInput:
+                        id: display_input340
+                        background_color: root.color340
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display340()
+
+            BoxLayout:
+                size_hint_y: 0.2
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "É≈j"
+                    TextInput:
+                        id: display_input350
+                        background_color: root.color350
+                        hint_text: '1'
+                        on_focus: app.root.ids['calculator3'].display350()
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "É¢V [m/s]"
+                    TextInput:
+                        id: display_input360
+                        background_color: root.color360
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display360()
+
+
+
+        BoxLayout:
+            size_hint_x: 0.4
+            size_hint_y: 1
+            orientation: "vertical"
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: 1
+                spacing: 24
+                padding: 4
+                Button:
+                    text: "Rocket"
+                    color: root.color_rocket
+                    on_press: app.root.ids['calculator3'].display310()
+                Button:
+                    text: "Plane"
+                    color: root.color_plane
+                    on_press: app.root.ids['calculator3'].display311()
+            Keyboard3:
+                size_hint_y: 5
+
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.3
+
+            Label:
+                text: "Steady Level Flight"    
+                size_hint_y: 0.05
+            BoxLayout:
+                size_hint_y: 0.15
+                orientation: "horizontal"
+                Button:
+                    text: "Cl"
+                    background_color: root.color_Cl
+                    on_press: app.root.ids['calculator3'].calc_Cl()
+                Button:
+                    text: "Cd"
+                    background_color: root.color_Cd
+                    on_press: app.root.ids['calculator3'].calc_Cd()
+                Button:
+                    text: "Tn [N]"
+                    background_color: root.color_Tn
+                    on_press: app.root.ids['calculator3'].calc_Tn()
+                Button:
+                    text: "Rmax [km]"
+                    font_size: 12
+                    background_color: root.color_Rmax
+                    on_press: app.root.ids['calculator3'].calc_Rmax()
+
+            BoxLayout:
+                size_hint_y: 0.2
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "m [kg]"
+                    TextInput:
+                        id: display_input311
+                        background_color: root.color311
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display311()
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "V [m/s]"
+                    TextInput:
+                        id: display_input321
+                        background_color: root.color321
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display321()
+
+            BoxLayout:
+                size_hint_y: 0.2
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "S [m2]"
+                    TextInput:
+                        id: display_input331
+                        background_color: root.color331
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display331()
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "Éœ [kg/m3]"
+                    TextInput:
+                        id: display_input341
+                        background_color: root.color341
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display341()
+
+            BoxLayout:
+                size_hint_y: 0.2
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "Cd0"
+                    TextInput:
+                        id: display_input351
+                        background_color: root.color351
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display351()
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "e"
+                    TextInput:
+                        id: display_input361
+                        background_color: root.color361
+                        hint_text: '1'
+                        on_focus: app.root.ids['calculator3'].display361()
+
+            BoxLayout:
+                size_hint_y: 0.2
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "AR"
+                    TextInput:
+                        id: display_input371
+                        background_color: root.color371
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display371()
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "É≈j"
+                    TextInput:
+                        id: display_input381
+                        background_color: root.color381
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display381()
+            BoxLayout:
+                size_hint_y: 0.2
+                orientation: "horizontal"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "SFC [kgf/hr/kgf]"
+                    TextInput:
+                        id: display_input391
+                        background_color: root.color391
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display391()
+
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "mf [kg]"
+                    TextInput:
+                        id: display_input3101
+                        background_color: root.color3101
+                        hint_text: '0'
+                        on_focus: app.root.ids['calculator3'].display3101()
+
+
+<TextInput>:
+    multiline: False
+    write_tab: False
+    
+<Keyboard3@GridLayout>:
+
+    cols: 4
+    rows: 4
+
+    spacing: 2
+    padding: 4
+
+    # 1?øΩ?øΩ
+    NumberButton3:
+        text: "7"
+    NumberButton3:
+        text: "8"
+    NumberButton3:
+        text: "9"
+    AllClearButton3:
+        text: "AC"
+
+    # 2?øΩ?øΩ
+    NumberButton3:
+        text: "4"
+    NumberButton3:
+        text: "5"
+    NumberButton3:
+        text: "6"
+    ClearButton3:
+        text: "C"
+
+    # 3?øΩ?øΩ
+    NumberButton3:
+        text: "1"
+    NumberButton3:
+        text: "2"
+    NumberButton3:
+        text: "3"
+    DelButton3:
+        text: "DEL"
+
+    # 4?øΩ?øΩ
+    NumberButton3:
+        text: "0"
+    NumberButton3:
+        text: "."
+    EqualButton3:
+        text: "="
+    CopyButton3:
+        text: "C/P"
+
+<ButtonFormat3@Button>:
+    font_size: '30dp'
+    background_normal: ''
+    background_down: ''
+    background_color: get_color_from_hex("#83481F")
+    on_press: self.background_color = get_color_from_hex("#823600")
+    on_release: self.background_color = get_color_from_hex("#83481F")
+
+<NumberButton3@ButtonFormat3>:
+    bold: True
+    on_press:  app.root.ids['calculator3'].print_number(self.text)
+
+<AllClearButton3@ButtonFormat3>:
+    on_press:  app.root.ids['calculator3'].all_clear()
+
+<ClearButton3@ButtonFormat3>:
+    on_press:  app.root.ids['calculator3'].clear()
+
+<DelButton3@ButtonFormat3>:
+    on_press:  app.root.ids['calculator3'].delete()
+
+<EqualButton3@ButtonFormat3>:
+
+<CopyButton3@ButtonFormat3>:
+    on_press:  app.root.ids['calculator3'].copy_paste()
+
+
+
+
+<Calculator4>
+    display4_1: display_input41
+    display4_2: display_input42
+
+    orientation: "vertical"
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: 0.3
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.425
+            TextInput:
+                id: display_input41
+                font_size: 50
+                hint_text: '0'
+                size_hint_y: 0.2
+                background_color: root.color41
+                on_focus: app.root.ids['calculator4'].display41()
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: 0.1
+                spacing: 8
+                padding: 8
+                Label:
+                    size_hint_x: 0.14
+                Button:
+                    text: "Å~10^3"
+                    size_hint_x: 0.0825
+                    on_press: app.root.ids['calculator4'].camma_up41()
+                Button:
+                    text: "ÅÄ10^3"
+                    size_hint_x: 0.0825
+                    on_press: app.root.ids['calculator4'].camma_down41()
+                Label:
+                    size_hint_x: 0.02
+                Label:
+                    id: unit1
+                    text: "Unit1"
+                    font_size: 30
+                    size_hint_x: 0.1
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.15
+            Label:
+                size_hint_y: 0.05
+            Button:
+                text: "convert"
+                size_hint_y: 0.1
+                on_press: app.root.ids['calculator4'].convert()
+            Label:
+                size_hint_y: 0.05
+            Button:
+                text: "switch"
+                size_hint_y: 0.08
+                on_press: app.root.ids['calculator4'].switch()
+            Label:
+                size_hint_y: 0.02
+
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.425
+            TextInput:
+                id: display_input42
+                font_size: 50
+                hint_text: '0'
+                size_hint_y: 0.2
+                background_color: root.color42
+                on_focus: app.root.ids['calculator4'].display42()
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: 0.1
+                spacing: 8
+                padding: 8
+                Label:
+                    size_hint_x: 0.14
+                Button:
+                    text: "Å~10^3"
+                    size_hint_x: 0.0825
+                    on_press: app.root.ids['calculator4'].camma_up42()
+                Button:
+                    text: "ÅÄ10^3"
+                    size_hint_x: 0.0825
+                    on_press: app.root.ids['calculator4'].camma_down42()
+                Label:
+                    size_hint_x: 0.02
+                Label:
+                    id: unit2
+                    text: "Unit2"
+                    font_size: 30
+                    size_hint_x: 0.1
+
+
+
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: 0.7
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.3
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 12
+                padding: 12
+                Button:
+                    text: "[ft] / [m]"
+                    on_press: app.root.ids['calculator4'].ft_m()
+                Button:
+                    text: "[nm] / [km]"
+                    on_press: app.root.ids['calculator4'].nm_km()
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 12
+                padding: 12
+                Button:
+                    text: "[kt] / [km/h]"
+                    on_press: app.root.ids['calculator4'].kt_kmh()
+                Button:
+                    text: "[m/s] / [km/h]"
+                    on_press: app.root.ids['calculator4'].ms_kmh()
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 12
+                padding: 12
+                Button:
+                    text: "[gallon] / [L]"
+                    on_press: app.root.ids['calculator4'].gallon_L()
+                Label:
+                    text: ""
+        Keyboard4:
+            size_hint_x: 0.4
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.3
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 12
+                padding: 12
+                Button:
+                    text: "[lb] / [kg]"
+                    on_press: app.root.ids['calculator4'].lb_kg()
+                Button:
+                    text: "[lb] / [slug]"
+                    on_press: app.root.ids['calculator4'].lb_slug()
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 12
+                padding: 12
+                Button:
+                    text: "[atm] / [Pa]"
+                    on_press: app.root.ids['calculator4'].atm_Pa()
+                Button:
+                    text: "[psi] / [Pa]"
+                    on_press: app.root.ids['calculator4'].psi_Pa()
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 12
+                padding: 12
+                Button:
+                    text: "[HP] / [kW]"
+                    on_press: app.root.ids['calculator4'].HP_kW()
+                Button:
+                    text: "[PS] / [kW]"
+                    on_press: app.root.ids['calculator4'].PS_kW()
+
+
+<Keyboard4@GridLayout>:
+
+    cols: 4
+    rows: 4
+
+    spacing: 2
+    padding: 4
+
+    # 1?øΩ?øΩ
+    NumberButton4:
+        text: "7"
+    NumberButton4:
+        text: "8"
+    NumberButton4:
+        text: "9"
+    AllClearButton4:
+        text: "AC"
+
+    # 2?øΩ?øΩ
+    NumberButton4:
+        text: "4"
+    NumberButton4:
+        text: "5"
+    NumberButton4:
+        text: "6"
+    ClearButton4:
+        text: "C"
+
+    # 3?øΩ?øΩ
+    NumberButton4:
+        text: "1"
+    NumberButton4:
+        text: "2"
+    NumberButton4:
+        text: "3"
+    DelButton4:
+        text: "DEL"
+
+    # 4?øΩ?øΩ
+    NumberButton4:
+        text: "0"
+    NumberButton4:
+        text: "."
+    EqualButton4:
+        text: "="
+    CopyButton4:
+        text: "C/P"
+
+<ButtonFormat4@Button>:
+    font_size: '30dp'
+    background_normal: ''
+    background_down: ''
+    background_color: get_color_from_hex("#83481F")
+    on_press: self.background_color = get_color_from_hex("#823600")
+    on_release: self.background_color = get_color_from_hex("#83481F")
+
+<NumberButton4@ButtonFormat4>:
+    bold: True
+    on_press:  app.root.ids['calculator4'].print_number(self.text)
+
+<AllClearButton4@ButtonFormat4>:
+    on_press:  app.root.ids['calculator4'].all_clear()
+
+<ClearButton4@ButtonFormat4>:
+    on_press:  app.root.ids['calculator4'].clear()
+
+<DelButton4@ButtonFormat4>:
+    on_press:  app.root.ids['calculator4'].delete()
+
+<EqualButton4@ButtonFormat4>:
+
+<CopyButton4@ButtonFormat4>:
+    on_press:  app.root.ids['calculator4'].copy_paste()
