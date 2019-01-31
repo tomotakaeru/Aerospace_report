@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -25,7 +24,7 @@ Yze=np.zeros((n,n))
 stream=np.zeros((n,n))
 poten=np.zeros((n,n))
 
-gamma=4.0*np.pi*v0*a*np.sin(alpha+beta) #クッタ条件
+gamma=4.0*np.pi*v0*a*np.sin(alpha+beta) #Kutta条件
 Zc=a*np.exp(1j*(np.pi-beta))+c
 cgamma=1j*gamma/(2.0*np.pi)
 
@@ -46,14 +45,13 @@ def Zeta(s,t):
     Zeta=Z+c**2/Z
     return Zeta
 
-#ｚ座標系からζ座標系の圧力分布に変換する関数
+#z座標系からζ座標系の圧力分布に変換する関数
 def pres(s,t):
     z=s+1j*t
     Z=z*np.exp(1j*alpha)+Zc
     f=np.exp(-1j*alpha)*v0*(1-a**2/z**2+1j*gamma/(v0*2*np.pi*z))/(1-c**2/Z**2)
     Cp=1-np.abs(f)**2/v0**2
     return Cp
-
 
 
 for i in range(n):
@@ -75,7 +73,6 @@ for i in range(n):
 Wing=Zeta(x[0,:],y[0,:])
 
 Cp=pres(x,y)
-
 
 
 #翼に働く空気力の計算
@@ -101,13 +98,13 @@ for l in range(n-1):
     Bf=Bf+fy
     cxp=cxp-cpm*dnx
     cyp=cyp-cpm*dny
-    
+
+
 #抵抗係数、揚力係数
 cxp=cxp/(4.0*c)
 cyp=cyp/(4.0*c)
 cdp=cxp*np.cos(alpha)+cyp*np.sin(alpha)
 clp=cyp*np.cos(alpha)-cxp*np.sin(alpha)
-
 print("Cd=",end="")
 print(cdp)
 print("Cl=",end="")
@@ -120,15 +117,14 @@ print(xcp)
 
 
 
-"""
 #翼形状
 plt.plot(np.real(Wing),np.imag(Wing),color='k')
 
 #流線
-#plt.contour(Xze,Yze,stream,80)
+plt.contour(Xze,Yze,stream,80)
 
 #等圧線
-#plt.contour(Xze,Yze,Cp,40)
+plt.contour(Xze,Yze,Cp,40)
 
 #圧力分布
 plt.plot(Xze[0],Cp[0])
@@ -136,7 +132,5 @@ plt.plot(Xze[0],Cp[0])
 plt.axes().set_aspect('equal', 'datalim')
 plt.xlim(-1,1)
 plt.ylim(-4,1.5)
-#plt.colorbar()
 plt.autumn()
 plt.show()
-"""
