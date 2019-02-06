@@ -9,7 +9,7 @@
 - Fluid Dynamics
   * Airfoil
   * Boundary Layer
-  * Compressibility
+  * Seperation Flow
 - Solid Dynamics
   * Structual Mechanics
   * Elastodynamics
